@@ -1,0 +1,26 @@
+.primary-color{
+    background-color: #3DD596;
+}
+
+.employee-card{
+    -webkit-box-shadow: 3px 6px 9px 3px rgba(0,0,0,0.58); 
+    box-shadow: 3px 6px 9px 3px rgba(0,0,0,0.58);
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #F6F6F6;
+}
+
+.div-padding{
+    padding: 4.5rem 3rem;
+}
+
+.list{
+    list-style: none;
+}
+
+.list-item{
+    font-size: 1.35rem;
+    border: 1px solid #3DD596;
+    padding: .5rem;
+    word-wrap: break-word;
+}
