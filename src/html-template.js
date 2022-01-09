@@ -8,7 +8,7 @@ function generateEmployees(employeeData){
     }
 
     return employeeArr.map(employee =>{
-        if(employee.role === 'engineer'){
+        if(employee.getRole() === 'Engineer'){
             return `
 
             <!-- employee info -->
@@ -21,7 +21,7 @@ function generateEmployees(employeeData){
                     <div class="div-padding">
                         <ul class="list m-0 p-0">
                             <li class="list-item">ID: ${employee.id}</li>
-                            <li class="list-item">Email: <a href="mailto: ${employee.email}">${employee.email}</a></li>
+                            <li class="list-item">Email: <a href="mailto: ${employee.email} target="_blank"">${employee.email}</a></li>
                             <li class="list-item">GitHub: ${employee.github}</li>
                         </ul>
                     </div>
@@ -29,7 +29,7 @@ function generateEmployees(employeeData){
             </article>
             `
         }
-        else if(employee.role === 'intern'){
+        else if(employee.getRole() === 'Intern'){
             return `
 
             <!-- employee info -->
@@ -42,7 +42,7 @@ function generateEmployees(employeeData){
                     <div class="div-padding">
                         <ul class="list m-0 p-0">
                             <li class="list-item">ID: ${employee.id}</li>
-                            <li class="list-item">Email: <a href="mailto: ${employee.email}">${employee.email}</a></li>
+                            <li class="list-item">Email: <a href="mailto: ${employee.email} target="_blank"">${employee.email}</a></li>
                             <li class="list-item">School: ${employee.school}</li>
                         </ul>
                     </div>
@@ -96,7 +96,7 @@ module.exports = employeeData =>{
                         <div class="div-padding">
                             <ul class="list m-0 p-0">
                                 <li class="list-item">ID: ${employeeData.id}</li>
-                                <li class="list-item">Email: <a href="mailto: ${employeeData.email}">${employeeData.email}</a></li>
+                                <li class="list-item">Email: <a href="mailto: ${employeeData.email}" target="_blank">${employeeData.email}</a></li>
                                 <li class="list-item">Office Number: ${employeeData.officeNumber}</li>
                             </ul>
                         </div>

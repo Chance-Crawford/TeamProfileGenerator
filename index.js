@@ -72,7 +72,7 @@ function promptManager(){
 
 
 
-function promptEngineer(managerInfo){
+function promptEngineer(){
     return inquirer.prompt([
         {
             type: 'input',
@@ -135,7 +135,7 @@ function promptEngineer(managerInfo){
 
 
 
-function promptIntern(managerInfo){
+function promptIntern(){
     return inquirer.prompt([
         {
             type: 'input',
@@ -226,11 +226,15 @@ function writeFile(pageHtml){
 }
 
 
+function makeManager(managerInfo){
+    const manager = new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.officeNumber);
+    promptEmployees(manager);
+}
 
-function promptEmployees(managerInfo){
+function promptEmployees(manager){
 
-    if(!managerInfo.employeeArr){
-        managerInfo.employeeArr = [];
+    if(!manager.employeeArr){
+        manager.employeeArr = [];
     }
 
     inquirer.prompt({
@@ -241,25 +245,25 @@ function promptEmployees(managerInfo){
     })
     .then(({employee}) =>{
         if(employee == "Engineer"){
-            promptEngineer(managerInfo)
+            promptEngineer()
             .then(engineerInfo => {
-                engineerInfo.role = 'engineer';
-                managerInfo.employeeArr.push(engineerInfo);
-                console.log(managerInfo);
-                promptEmployees(managerInfo);
+                const engineer = new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github);
+                manager.employeeArr.push(engineer);
+                console.log(manager);
+                promptEmployees(manager);
             })
         }
         else if(employee == "Intern"){
-            promptIntern(managerInfo)
+            promptIntern()
             .then(internInfo => {
-                internInfo.role = 'intern';
-                managerInfo.employeeArr.push(internInfo);
-                console.log(managerInfo);
-                promptEmployees(managerInfo);
+              const intern = new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school);
+                manager.employeeArr.push(intern);
+                console.log(manager);
+                promptEmployees(manager);
             })
         }
         else{
-            return writeFile(generatePage(managerInfo));
+            return writeFile(generatePage(manager));
         }
         
     });
@@ -268,7 +272,7 @@ function promptEmployees(managerInfo){
 
 
 promptManager()
-.then(promptEmployees)
+.then(makeManager)
 .catch(err => {
     console.log(err);
 });
