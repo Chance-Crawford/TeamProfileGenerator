@@ -2,6 +2,7 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generatePage = require('./src/html-template')
 
 const inquirer = require('inquirer');
 
@@ -196,6 +197,36 @@ function promptIntern(managerInfo){
 }
 
 
+
+function copyStyleFile(){
+  fs.copyFile('./src/style.css', './dist/style.css', err =>{
+    if (err){
+      throw err;
+    }
+
+    // if success
+    console.log('Stylesheet copied over!');
+  });
+}
+
+
+
+function writeFile(pageHtml){
+    fs.writeFile('./dist/index.html', pageHtml, err =>{
+      if (err){
+        throw err;
+      }
+
+      // success case
+      console.log('File created in "dist" folder!');
+      
+    });
+
+    copyStyleFile();
+}
+
+
+
 function promptEmployees(managerInfo){
 
     if(!managerInfo.employeeArr){
@@ -228,17 +259,16 @@ function promptEmployees(managerInfo){
             })
         }
         else{
-            return managerInfo;
+            return writeFile(generatePage(managerInfo));
         }
         
     });
 
-    
-
-
-
 }
 
+
 promptManager()
-.then(managerInfo => {promptEmployees(managerInfo);})
-.then(fullList => {console.log(fullList);});
+.then(promptEmployees)
+.catch(err => {
+    console.log(err);
+});
